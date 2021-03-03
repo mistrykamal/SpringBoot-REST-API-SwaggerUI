@@ -13,11 +13,15 @@ import com.example.demo.beans.Hospital;
 import com.example.demo.services.HospitalService;
 
 @RestController
-@RequestMapping("/test/")
 public class HospitalController {
 	
 	@Autowired
 	private HospitalService hospitalService;
+
+	@RequestMapping(value="")
+	public String getWelcome() throws Exception {
+		return "<h1>Welcome to Hospital page</h1>";
+	}
 	
 	@ResponseBody 
 	@RequestMapping(value="/hospitals/{id}", method = RequestMethod.GET)

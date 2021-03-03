@@ -14,19 +14,31 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity  // tells application that this is the Web Security Configuration class
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	
-//	@Autowired
-//	private AuthenticationEntryPoint authEntryPoint;
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http.csrf().disable().authorizeRequests()
-//			.anyRequest().authenticated()
-//				.and().httpBasic()
-//				.authenticationEntryPoint(authEntryPoint);
-//	}
+	@Autowired
+	private AuthenticationEntryPoint authEntryPoint;
+	
+	/**
+	 *   Overriding the configure method of WebSecurityConfigureAdapter
+	 *   
+	 *   Authorizing security using HttpSecurity
+	 *   
+	 *   1. get hold of HttpSecurity 
+	 *   2. set configuration on it
+	 */
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests()
+			.antMatchers("/hospitals/{id}").hasRole("ADMIN")
+			.antMatchers("/hospitals").hasAnyRole("USER", "ADMIN")
+			.antMatchers("/").permitAll()
+			.and().formLogin();
+	}
 	
 	/** 
 	 * 	Overriding the configure method of WebSecurityConfigurerAdapter 
 	 * 
+	 *  using AuthenticationManagerBuilder
+	 * 	
 	 *  1. get hold of Authentication Manager Builder
 	 *  2. set configuration on it
 	 *  
@@ -36,6 +48,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.inMemoryAuthentication()
 			.withUser("kamal")
 			.password("mistry")
+			.roles("ADMIN")
+			.and()
+			.withUser("minesh")
+			.password("mistry123")
 			.roles("USER");
 	}
 	

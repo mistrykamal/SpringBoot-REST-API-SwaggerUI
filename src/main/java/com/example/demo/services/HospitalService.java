@@ -13,8 +13,8 @@ import com.example.demo.respositories.HospitalRepository;
 @Service
 public class HospitalService {
 	
-	@Autowired
-	private HospitalRepository hospitalRepository;
+//	@Autowired
+//	private HospitalRepository hospitalRepository;
 
 	private List<Hospital> hospitalList = new ArrayList<>(Arrays.asList(
 
@@ -27,8 +27,8 @@ public class HospitalService {
 
 	public List<Hospital> getAllHospitals() {
 		
-		List<Hospital> hospitalList= new ArrayList<Hospital>();
-		hospitalRepository.findAll().forEach(hospitalList::add);
+		//List<Hospital> hospitalList= new ArrayList<Hospital>();
+		//hospitalRepository.findAll().forEach(hospitalList::add);
 		
 		return hospitalList;
 	}
