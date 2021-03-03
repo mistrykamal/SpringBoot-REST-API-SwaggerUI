@@ -20,9 +20,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 				.and().httpBasic()
 				.authenticationEntryPoint(authEntryPoint);
 	}
+	
+	/** 
+	 * 	Overriding the configure method of WebSecurityConfigurerAdapter 
+	 */
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-auth.inMemoryAuthentication().withUser("username").password("password").roles("USER");
+		auth.inMemoryAuthentication()
+			.withUser("username")
+			.password("password")
+			.roles("USER");
 	}
 	
 }
