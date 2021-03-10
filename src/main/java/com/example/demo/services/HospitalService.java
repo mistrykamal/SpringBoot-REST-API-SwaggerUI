@@ -13,30 +13,44 @@ import com.example.demo.respositories.HospitalRepository;
 @Service
 public class HospitalService {
 	
-//	@Autowired
-//	private HospitalRepository hospitalRepository;
+	@Autowired
+	private HospitalRepository hospitalRepository;
 
-	private List<Hospital> hospitalList = new ArrayList<>(Arrays.asList(
-
-			new Hospital(1001, "Apollo Hospital", "Chennai", 3.8),
-
-			new Hospital(1002, "Global Hospital", "Chennai", 3.5),
-
-			new Hospital(1003, "VCare Hospital", "Bangalore", 3)));
-	
+//	private List<Hospital> hospitalList = new ArrayList<>(Arrays.asList(
+//
+//			new Hospital(1001, "Apollo Hospital", "Chennai", 3.8),
+//
+//			new Hospital(1002, "Global Hospital", "Chennai", 3.5),
+//
+//			new Hospital(1003, "VCare Hospital", "Bangalore", 3)));
 
 	public List<Hospital> getAllHospitals() {
-		
-		//List<Hospital> hospitalList= new ArrayList<Hospital>();
-		//hospitalRepository.findAll().forEach(hospitalList::add);
-		
-		return hospitalList;
+//		List<Hospital> hospitals = hospitalList;
+		return hospitalRepository.findAll();
 	}
 
 	public Hospital getHospital(int id) {
+		return hospitalRepository.findById(id);
+	}
 
-		return hospitalList.stream().filter(c -> c.getId() == (id)).findFirst().get();
+	public void addHospital(Hospital hospital) {
+//		hospitalList.stream().forEach(hospi -> hospitalRepository.save(hospi));
+		hospitalRepository.save(hospital);
+	}
 
+	public void updateHospital(int id, Hospital hospital) {
+//		Hospital eHospital = hospitalList.stream().filter(h -> h.getId() == id).findFirst().get();
+		Hospital eHospital = hospitalRepository.findById(id);
+		eHospital.setCity(hospital.getCity());
+		eHospital.setName(hospital.getName());
+		eHospital.setRating(hospital.getRating());
+		hospitalRepository.save(eHospital);
+	}
+
+	public void deleteHospital(int id) {
+//		Hospital dHospital = hospitalList.stream().filter(h -> h.getId() == id).findFirst().get();
+		Hospital dHospital = hospitalRepository.findById(id);
+		hospitalRepository.delete(dHospital);
 	}
 
 }

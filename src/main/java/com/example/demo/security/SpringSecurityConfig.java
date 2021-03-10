@@ -14,8 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity  // tells application that this is the Web Security Configuration class
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	@Autowired
-	private AuthenticationEntryPoint authEntryPoint;
 	
 	/**
 	 *   Overriding the configure method of WebSecurityConfigureAdapter
@@ -27,11 +25,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.antMatchers("/hospitals/{id}").hasRole("ADMIN")
-			.antMatchers("/hospitals").hasAnyRole("USER", "ADMIN")
-			.antMatchers("/").permitAll()
-			.and().formLogin();
+		http.cors().and().csrf().disable(); //When not using Authentication, You Have to disable the http csrf, because its ON by default 
+//		http.authorizeRequests()
+//			.antMatchers("/test/hospitals/load").hasAnyRole("USER","ADMIN")
+//			.antMatchers("/test/hospitals/{id}").hasAnyRole("USER","ADMIN")
+//			.antMatchers("/test/hospitals").hasAnyRole("USER","ADMIN")
+//			.antMatchers("/test").permitAll()
+//			.and().formLogin();
 	}
 	
 	/** 

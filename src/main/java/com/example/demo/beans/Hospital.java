@@ -1,11 +1,12 @@
 package com.example.demo.beans;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Hospital {
-	  @Id
+	 
 	  private int id;
 	  private String name;
 	  private String city;
@@ -19,6 +20,9 @@ public class Hospital {
 		  this.city= city;
 		  this.rating=rating;
 	  }
+	  
+	@Id
+	@GeneratedValue
 	public int getId() {
 		return id;
 	}
