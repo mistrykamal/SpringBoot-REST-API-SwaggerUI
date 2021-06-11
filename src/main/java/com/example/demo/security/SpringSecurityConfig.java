@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity  // tells application that this is the Web Security Configuration class
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	@Autowired
+	private AuthenticationEntryPoint authenticationEntryPoint;
 	
 	/**
 	 *   Overriding the configure method of WebSecurityConfigureAdapter
@@ -32,6 +34,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 //			.antMatchers("/test/hospitals").hasAnyRole("USER","ADMIN")
 //			.antMatchers("/test").permitAll()
 //			.and().formLogin();
+		
+		// When using Postman to see the response
+//		http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic()
+//			.authenticationEntryPoint(authenticationEntryPoint);
 	}
 	
 	/** 
@@ -44,7 +50,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	 *  
 	 */
 	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication()
 			.withUser("kamal")
 			.password("mistry")
