@@ -30,13 +30,6 @@ public class HospitalController {
 	public String getWelcome() throws Exception {
 		return "<h1>Welcome to Hospital page</h1>";
 	}
-
-	@ResponseBody
-	@GetMapping("/topstories")
-	public Object getTopStories() throws Exception {
-		Object result = hospitalService.getTopStories();
-		return result;
-	}
 	
 	@ResponseBody
 	@GetMapping("/hospitals/{id}")

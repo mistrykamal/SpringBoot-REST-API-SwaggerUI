@@ -1,0 +1,15 @@
+schema {
+	query: Query
+}
+
+type Query {
+	allHospitals: [Hospital]
+	hospital(id: ID): Hospital
+}
+
+type Hospital {
+	id: ID
+	name: String
+	city: String
+	rating: Float
+}

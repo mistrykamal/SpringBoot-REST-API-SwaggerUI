@@ -34,17 +34,6 @@ public class HospitalService {
 //		List<Hospital> hospitals = hospitalList;
 		return hospitalRepository.findAll();
 	}
-	
-	public Object getTopStories() {
-		String getUrl = "https://api.nytimes.com/svc/topstories/v2/arts.json";
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-
-		HttpEntity<String> entity = new HttpEntity<String>(headers);
-		Object news = restTemplate.getForObject(getUrl, Object.class, entity);
-
-		return news;
-	}
 
 	public Hospital getHospital(int id) {
 		return hospitalRepository.findById(id);
