@@ -5,7 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.beans.Hospital;
 import com.example.demo.respositories.HospitalRepository;
@@ -15,6 +19,8 @@ public class HospitalService {
 	
 	@Autowired
 	private HospitalRepository hospitalRepository;
+	
+	private static RestTemplate restTemplate;
 
 //	private List<Hospital> hospitalList = new ArrayList<>(Arrays.asList(
 //
@@ -27,6 +33,17 @@ public class HospitalService {
 	public List<Hospital> getAllHospitals() {
 //		List<Hospital> hospitals = hospitalList;
 		return hospitalRepository.findAll();
+	}
+	
+	public Object getTopStories() {
+		String getUrl = "https://api.nytimes.com/svc/topstories/v2/arts.json";
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+		Object news = restTemplate.getForObject(getUrl, Object.class, entity);
+
+		return news;
 	}
 
 	public Hospital getHospital(int id) {

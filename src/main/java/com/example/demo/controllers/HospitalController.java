@@ -32,6 +32,13 @@ public class HospitalController {
 	}
 
 	@ResponseBody
+	@GetMapping("/topstories")
+	public Object getTopStories() throws Exception {
+		Object result = hospitalService.getTopStories();
+		return result;
+	}
+	
+	@ResponseBody
 	@GetMapping("/hospitals/{id}")
 	public Hospital getHospital(@PathVariable final int id) throws Exception {
 		return hospitalService.getHospital(id);
