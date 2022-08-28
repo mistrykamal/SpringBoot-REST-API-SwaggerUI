@@ -11,19 +11,20 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationEn
 import org.springframework.stereotype.Component;
 
 @Component
-public class AuthenticationEntryPoint extends BasicAuthenticationEntryPoint{
+public class AuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
 	@Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authEx)
-      throws IOException {
-        response.addHeader("LoginUser", "Basic " +getRealmName());
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        PrintWriter writer = response.getWriter();
-        writer.println("HTTP Status 401 - " + authEx.getMessage());
-    }
+	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authEx)
+			throws IOException {
+		response.addHeader("LoginUser", "Basic " + getRealmName());
+		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		PrintWriter writer = response.getWriter();
+		writer.println("HTTP Status 401 - " + authEx.getMessage());
+	}
+
 	@Override
-    public void afterPropertiesSet() {
-        setRealmName("springboot");
-        super.afterPropertiesSet();          
-   }
-	
+	public void afterPropertiesSet() {
+		setRealmName("springboot");
+		super.afterPropertiesSet();
+	}
+
 }

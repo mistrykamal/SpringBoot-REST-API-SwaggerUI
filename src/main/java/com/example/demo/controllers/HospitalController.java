@@ -25,12 +25,12 @@ public class HospitalController {
 
 	@Autowired
 	private HospitalService hospitalService;
-	
+
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String getWelcome() throws Exception {
 		return "<h1>Welcome to Hospital page</h1>";
 	}
-	
+
 	@ResponseBody
 	@GetMapping("/hospitals/{id}")
 	public Hospital getHospital(@PathVariable final int id) throws Exception {
@@ -48,8 +48,7 @@ public class HospitalController {
 		try {
 			hospitalService.addHospital(hospital);
 			return new ResponseEntity<>(HttpStatus.CREATED);
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			return new ResponseEntity<>("Hospital Not Created", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -59,8 +58,7 @@ public class HospitalController {
 		try {
 			hospitalService.updateHospital(id, hospital);
 			return new ResponseEntity<>(HttpStatus.CREATED);
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			return new ResponseEntity<>("Hospital Not Updated", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -70,8 +68,7 @@ public class HospitalController {
 		try {
 			hospitalService.deleteHospital(id);
 			return new ResponseEntity<>(HttpStatus.CREATED);
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			return new ResponseEntity<>("Hospital Not Deleted", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

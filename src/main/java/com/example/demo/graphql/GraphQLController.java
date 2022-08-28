@@ -13,14 +13,14 @@ import graphql.ExecutionResult;
 
 @RestController
 public class GraphQLController {
-	
+
 	@Autowired
 	private GraphQLService graphqlService;
-	
+
 	@PostMapping("/graphql/hospitals")
 	public ResponseEntity<Object> getAllHospitals(@RequestBody final String query) {
 		ExecutionResult execute = graphqlService.getGraphQL().execute(query);
 		return new ResponseEntity<>(execute, HttpStatus.OK);
 	}
-	
+
 }

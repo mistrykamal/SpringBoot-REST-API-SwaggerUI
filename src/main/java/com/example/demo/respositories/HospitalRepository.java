@@ -9,6 +9,5 @@ import com.example.demo.beans.Hospital;
 public interface HospitalRepository extends JpaRepository<Hospital, Integer> {
 
 	Hospital findById(int id);
-	
-	
+
 }

@@ -16,10 +16,10 @@ import com.example.demo.respositories.HospitalRepository;
 
 @Service
 public class HospitalService {
-	
+
 	@Autowired
 	private HospitalRepository hospitalRepository;
-	
+
 	private static RestTemplate restTemplate;
 
 //	private List<Hospital> hospitalList = new ArrayList<>(Arrays.asList(

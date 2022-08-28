@@ -11,7 +11,7 @@ import graphql.schema.DataFetchingEnvironment;
 
 @Component
 public class HospitalDataFetcher implements DataFetcher<Hospital> {
-	
+
 	@Autowired
 	private HospitalRepository hospitalRepository;
 
@@ -19,7 +19,7 @@ public class HospitalDataFetcher implements DataFetcher<Hospital> {
 	public Hospital get(DataFetchingEnvironment environment) throws Exception {
 		// TODO Auto-generated method stub
 		String id = environment.getArgument("id");
-		
+
 		return hospitalRepository.findById(Integer.parseInt(id));
 	}
 

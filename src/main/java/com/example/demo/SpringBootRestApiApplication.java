@@ -8,10 +8,8 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.servers.Server;
 
 @SpringBootApplication
-@OpenAPIDefinition(
-		info = @Info(title = "Hospital API", version="1.0.0"),
-		servers = { @Server(url = "http://localhost:8080"), @Server(url = "https://env-server.org")
-		})
+@OpenAPIDefinition(info = @Info(title = "Hospital API", version = "1.0.0"), servers = {
+		@Server(url = "http://localhost:8080"), @Server(url = "https://env-server.org") })
 public class SpringBootRestApiApplication {
 
 	public static void main(String[] args) {

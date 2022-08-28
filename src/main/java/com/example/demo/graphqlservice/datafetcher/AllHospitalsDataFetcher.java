@@ -12,11 +12,11 @@ import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 
 @Component
-public class AllHospitalsDataFetcher implements DataFetcher<List<Hospital>>{
+public class AllHospitalsDataFetcher implements DataFetcher<List<Hospital>> {
 
 	@Autowired
 	private HospitalRepository hospitalRepository;
-	
+
 	@Override
 	public List<Hospital> get(DataFetchingEnvironment environment) throws Exception {
 		// TODO Auto-generated method stub
