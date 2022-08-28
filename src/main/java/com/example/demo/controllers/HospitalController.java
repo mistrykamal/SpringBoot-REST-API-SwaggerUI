@@ -20,6 +20,7 @@ import com.example.demo.beans.Hospital;
 import com.example.demo.services.HospitalService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -38,8 +39,9 @@ public class HospitalController {
 
 	@ResponseBody
 	@GetMapping("/get-hospital/{id}")
-	@Operation(summary = "get hospital by id")
-	public Hospital getHospital(@PathVariable final int id) throws Exception {
+	@Operation(summary = "get hospital by id",
+			parameters = {@Parameter(name="hospitalId", description="the path variable is integer", example="1")})
+	public Hospital getHospital(@PathVariable("hospitalId") final int id) throws Exception {
 		return hospitalService.getHospital(id);
 	}
 
@@ -64,8 +66,9 @@ public class HospitalController {
 
 	@PutMapping("/edit-hospital/{id}")
 	@Operation(summary = "update the hospital", description = "modify the hospital with respect to the provided hospital-id",
-			requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "this is the request body description"))
-	public ResponseEntity<String> updateHospital(@PathVariable("id") int id, @RequestBody Hospital hospital) {
+			requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "this is the request body description"),
+			parameters = {@Parameter(name="hospitalId", description="the path variable is integer", example="1")})
+	public ResponseEntity<String> updateHospital(@PathVariable("hospitalId") int id, @RequestBody Hospital hospital) {
 		try {
 			hospitalService.updateHospital(id, hospital);
 			return new ResponseEntity<>(HttpStatus.CREATED);
@@ -75,8 +78,9 @@ public class HospitalController {
 	}
 
 	@DeleteMapping("/remove-hospital/{id}")
-	@Operation(summary = "delete the hospital", description = "delete the hospital with respect to the provided hospital-id")
-	public ResponseEntity<String> deleteHospital(@PathVariable int id) {
+	@Operation(summary = "delete the hospital", description = "delete the hospital with respect to the provided hospital-id",
+			parameters = {@Parameter(name="hospitalId", description="the path variable is integer", example="1")})
+	public ResponseEntity<String> deleteHospital(@PathVariable("hospitalId") int id) {
 		try {
 			hospitalService.deleteHospital(id);
 			return new ResponseEntity<>(HttpStatus.CREATED);
