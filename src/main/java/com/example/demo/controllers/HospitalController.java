@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,8 @@ import com.example.demo.services.HospitalService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -40,21 +43,24 @@ public class HospitalController {
 	@ResponseBody
 	@GetMapping("/get-hospital/{id}")
 	@Operation(summary = "get hospital by id",
-			parameters = {@Parameter(name="hospitalId", description="the path variable is integer", example="1")})
+			parameters = {@Parameter(name="hospitalId", description="the path variable is integer", example="1")},
+			responses = {@ApiResponse(responseCode = "200", description="Success Response")})
 	public Hospital getHospital(@PathVariable("hospitalId") final int id) throws Exception {
 		return hospitalService.getHospital(id);
 	}
 
 	@ResponseBody
 	@GetMapping(value = "/all-hospitals")
-	@Operation(summary = "get all the saved hospitals")
+	@Operation(summary = "get all the saved hospitals",
+			responses = {@ApiResponse(responseCode = "200", description="Success Response", content = @Content(mediaType= MediaType.APPLICATION_JSON_VALUE))})
 	public List<Hospital> getAllHospitals() throws Exception {
 		return hospitalService.getAllHospitals();
 	}
 
 	@PostMapping(value = "/load-hospital")
 	@Operation(summary = "create and save a hospital", 
-			requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "this is the request body description"))
+			requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "this is the request body description"),
+			responses = {@ApiResponse(responseCode = "200", description="Success Response")})
 	public ResponseEntity<String> createHospital(@RequestBody final Hospital hospital) {
 		try {
 			hospitalService.addHospital(hospital);
@@ -67,7 +73,8 @@ public class HospitalController {
 	@PutMapping("/edit-hospital/{id}")
 	@Operation(summary = "update the hospital", description = "modify the hospital with respect to the provided hospital-id",
 			requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "this is the request body description"),
-			parameters = {@Parameter(name="hospitalId", description="the path variable is integer", example="1")})
+			parameters = {@Parameter(name="hospitalId", description="the path variable is integer", example="1")},
+			responses = {@ApiResponse(responseCode = "201", description="Success Response")})
 	public ResponseEntity<String> updateHospital(@PathVariable("hospitalId") int id, @RequestBody Hospital hospital) {
 		try {
 			hospitalService.updateHospital(id, hospital);
