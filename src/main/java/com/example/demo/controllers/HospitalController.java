@@ -24,34 +24,35 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/v1")
-@Tag(name="REST services")
+@Tag(name = "REST services")
 public class HospitalController {
 
 	@Autowired
 	private HospitalService hospitalService;
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	@Operation(summary= "show welcome page")
+	@Operation(summary = "show welcome page")
 	public String getWelcome() throws Exception {
 		return "<h1>Welcome to Hospital page</h1>";
 	}
 
 	@ResponseBody
 	@GetMapping("/get-hospital/{id}")
-	@Operation(summary= "get hospital by id")
+	@Operation(summary = "get hospital by id")
 	public Hospital getHospital(@PathVariable final int id) throws Exception {
 		return hospitalService.getHospital(id);
 	}
 
 	@ResponseBody
 	@GetMapping(value = "/all-hospitals")
-	@Operation(summary= "get all the saved hospitals")
+	@Operation(summary = "get all the saved hospitals")
 	public List<Hospital> getAllHospitals() throws Exception {
 		return hospitalService.getAllHospitals();
 	}
 
 	@PostMapping(value = "/load-hospital")
-	@Operation(summary= "create and save a hospital")
+	@Operation(summary = "create and save a hospital", 
+			requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "this is the request body description"))
 	public ResponseEntity<String> createHospital(@RequestBody final Hospital hospital) {
 		try {
 			hospitalService.addHospital(hospital);
@@ -62,7 +63,8 @@ public class HospitalController {
 	}
 
 	@PutMapping("/edit-hospital/{id}")
-	@Operation(summary= "update the hospital", description= "modify the hospital with respect to the provided hospital-id")
+	@Operation(summary = "update the hospital", description = "modify the hospital with respect to the provided hospital-id",
+			requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "this is the request body description"))
 	public ResponseEntity<String> updateHospital(@PathVariable("id") int id, @RequestBody Hospital hospital) {
 		try {
 			hospitalService.updateHospital(id, hospital);
@@ -73,7 +75,7 @@ public class HospitalController {
 	}
 
 	@DeleteMapping("/remove-hospital/{id}")
-	@Operation(summary= "delete the hospital", description= "delete the hospital with respect to the provided hospital-id")
+	@Operation(summary = "delete the hospital", description = "delete the hospital with respect to the provided hospital-id")
 	public ResponseEntity<String> deleteHospital(@PathVariable int id) {
 		try {
 			hospitalService.deleteHospital(id);
